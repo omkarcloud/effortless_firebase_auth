@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'infrastructure/queries.dart';
+import 'infrastructure/api.dart';
 import 'operations.dart';
 
 class Home extends StatelessWidget {

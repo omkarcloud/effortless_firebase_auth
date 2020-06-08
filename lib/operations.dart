@@ -1,124 +1,75 @@
+import 'package:allsirsa/infrastructure/api.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firestore_helpers/firestore_helpers.dart';
+import 'package:flutter/material.dart';
+import 'package:store_ds/store.dart';
 
-import 'infrastructure/queries.dart';
+import 'package:allsirsa/infrastructure/CategoryApi.dart';
+import 'package:allsirsa/infrastructure/CustomerApi.dart';
+import 'package:allsirsa/infrastructure/OrderApi.dart';
+import 'package:allsirsa/infrastructure/ProductsApi.dart';
+import 'package:allsirsa/infrastructure/SellerApi.dart';
 
-List<Map<String, dynamic>> allsellers = [
-  {
-    'name': 'Ratu',
-    "phone": "999",
-    "catedories": ['milk', 'pulses']
-  },
-  {
-    'name': 'Ram',
-    "phone": "888",
-    "catedories": ['groceries']
-  },
-  {
-    'name': 'Chandra',
-    "phone": "777",
-    "catedories": ['milk']
-  },
-];
-
-// Some have categories and some not
-
-List<Map<String, dynamic>> allproduct = [
-  {
-    'name': 'Chips',
-    "price": 5,
-    "category": 'groceries',
-    "subcategory": "packed",
-  },
-  {
-    'name': 'Milk',
-    "price": 5,
-    "category": 'milk',
-  },
-  {
-    'name': 'Atta',
-    "price": 5,
-    "category": 'groceries',
-    "subcategory": "fresh",
-  },
-];
-
-var sellers = Api('sellers');
-var products = Api('products');
-
-Future<QuerySnapshot> getProducts() async {
-  return await products.getDataCollection();
-}
-
-Future<QuerySnapshot> getSpecificProducts(
-    String category, String subcategory) async {
-  return products.ref
-      .where('sid', isEqualTo: 'ObolIcnaBIWC7sl2rgudA')
-      .where('category', isEqualTo: category)
-      .where('subcategory', isEqualTo: subcategory)
-      .getDocuments();
-}
-
-Future<DocumentReference> addProducts(product) {
-  return products.addDocument(product);
-}
+// Set up apis
+final sellerapi = SellerApi();
+final customerapi = CustomerApi();
+final orderapi = OrderApi();
+final productapi = ProductApi();
+final categoryapi = CategoryApi();
 
 performoperations() async {
-  // final seller = await getFirstSeller();
-  // await products.deleteCollection();
+  // -------------Customer Dash------------------
+  // final createdCustomer = await createCustomer();
 
-  // allproduct.forEach((e) {
-  //   e['sid'] = seller.documentID;
-  // });
+  // Get categories
+  final categories = await categoryapi.serveCategories();
+  // Get Sellers of Category
+  final sellerdata = await sellerapi.getallCatSeller(categories.first);
 
-  // await Future.forEach(allproduct, (element) => addProducts(element));
-  (await getallCatSeller('groceries'));
-  // await getallCatSeller('pulses');
+  // User select Seller
+  final selectedSeller = sellerdata.first;
 
-  // print(seller.data);
-}
+  // User gets  selected seller products
+  final productdata = await productapi.getProducts(
+    categories.first,
+    sid: selectedSeller['id'],
+  );
 
-createProduct() {}
+  // Get User details for placing order
+  final customerdata = await customerapi.customer.getFirstDocumentData();
 
-Future<DocumentSnapshot> getFirstSeller() async {
-  final docs =
-      await sellers.ref.where('name', isEqualTo: 'Ratu').getDocuments();
-  final firstseller = docs.documents.first;
-  return firstseller;
-}
+  // User places order
+  // await placeOrder(productdata.first, selectedSeller, customerdata);
 
-Future getallCatSeller(String cat) async {
-  // query.getDocuments();
-  final docs =
-      await sellers.ref.where('catedories', arrayContains: cat).getDocuments();
-  logDocs(docs);
-  final firstseller = docs.documents.first.data;
-  return firstseller;
-}
-
-void logDocs(QuerySnapshot docs) {
-  if (docs.documents.isEmpty) {
-    print('Documents are Empty');
-    return;
-  }
-  docs.documents.forEach((doc) {
-    print(doc.data);
+  // Just for logging in case
+  saveToStoreMultiple({
+    'categories': categories,
+    'sellerdata': selectedSeller,
+    'productdata': productdata,
+    'customerdata': customerdata,
   });
+
+  logStore();
+  // -------------Seller Dash------------------
+
+  // Get sellers order
+  final sellerorder =
+      (await orderapi.getOrderOfSeller(selectedSeller['id'])).first;
+
+  //  Sellers fulfill order
+  await orderapi.fulfillOrder(sellerorder['id']);
+
+  //  Sellers cancel order
+  await orderapi.cancelOrder(sellerorder['id'], 'notavailable');
 }
 
-Future addSellers() async {
-  allsellers.forEach((data) async {
-    final doc = await sellers.addDocument(data);
-    print('doc is $doc');
-  });
+Future<DocumentSnapshot> createCustomer() async {
+  final customer = await CustomerApi().createCustomer('Ram', '11 Street');
+  return ((await customer.get()));
 }
 
-Future deleteSellers() async {
-  allsellers.forEach((element) async {
-    final docs = await sellers.getDataCollection();
-    docs.documents.forEach((doc) async {
-      await doc.reference.delete();
-      print('Deleted $doc');
-    });
-  });
+Future placeOrder(Map<String, dynamic> productdata,
+    Map<String, dynamic> sellerdata, Map<String, dynamic> customerdata) async {
+  final docref = await orderapi.placeOrder(
+      productdata['id'], sellerdata['id'], customerdata['id'], 2);
+  return Api.withIdSingle(await docref.get());
 }

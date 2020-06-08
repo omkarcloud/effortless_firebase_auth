@@ -220,9 +220,9 @@ packages:
   store_ds:
     dependency: "direct main"
     description:
-      name: store_ds
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "/home/hari/AndroidStudioProjects/store"
+      relative: false
+    source: path
     version: "1.0.5"
   stream_channel:
     dependency: transitive

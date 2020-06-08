@@ -27,6 +27,7 @@ dependencies:
   firestore_helpers:
   firebase_core:
   store_ds:
+    path: '/home/hari/AndroidStudioProjects/store'
   # get_it: ^1.0.3+2
   # image_picker_saver: ^0.1.0
 
