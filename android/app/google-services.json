@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1025679152502",
+    "firebase_url": "https://allsirsa.firebaseio.com",
+    "project_id": "allsirsa",
+    "storage_bucket": "allsirsa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1025679152502:android:305582d01c1224b5d0d657",
+        "android_client_info": {
+          "package_name": "com.dev.allsirsa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1025679152502-c9ga3tuc6e0mp6rpn6fqtdns1j20forl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGRVW9ZsCWUIqJBHBxPYmGs_C0EF5YehA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1025679152502-c9ga3tuc6e0mp6rpn6fqtdns1j20forl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
