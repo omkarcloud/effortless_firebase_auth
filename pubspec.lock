@@ -198,6 +198,34 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.3"
+  quiver_hashcode:
+    dependency: transitive
+    description:
+      name: quiver_hashcode
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
+  rx_command:
+    dependency: transitive
+    description:
+      name: rx_command
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.0.3"
+  rx_store_ds:
+    dependency: "direct main"
+    description:
+      name: rx_store_ds
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.3"
+  rxdart:
+    dependency: transitive
+    description:
+      name: rxdart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.23.1"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -218,12 +246,12 @@ packages:
     source: hosted
     version: "1.9.3"
   store_ds:
-    dependency: "direct main"
+    dependency: transitive
     description:
-      path: "/home/hari/AndroidStudioProjects/store"
-      relative: false
-    source: path
-    version: "1.0.5"
+      name: store_ds
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.12"
   stream_channel:
     dependency: transitive
     description:

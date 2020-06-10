@@ -1,13 +1,14 @@
 import 'package:allsirsa/infrastructure/api.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:store_ds/store.dart';
+
 
 import 'package:allsirsa/infrastructure/CategoryApi.dart';
 import 'package:allsirsa/infrastructure/CustomerApi.dart';
 import 'package:allsirsa/infrastructure/OrderApi.dart';
 import 'package:allsirsa/infrastructure/ProductsApi.dart';
 import 'package:allsirsa/infrastructure/SellerApi.dart';
+import 'package:rx_store_ds/rx_store_ds.dart';
 
 // Set up apis
 final sellerapi = SellerApi();
@@ -41,7 +42,7 @@ performoperations() async {
   // await placeOrder(productdata.first, selectedSeller, customerdata);
 
   // Just for logging in case
-  saveToStoreMultiple({
+  saveMultiple({
     'categories': categories,
     'sellerdata': selectedSeller,
     'productdata': productdata,
