@@ -1,19 +1,16 @@
+import 'package:allsirsa/Methods/email.dart';
+import 'package:allsirsa/Methods/google.dart';
 import 'package:flutter/material.dart';
 
-import 'infrastructure/api.dart';
-import 'operations.dart';
-
 class Home extends StatelessWidget {
-  const Home({
-    Key key,
-  }) : super(key: key);
+  Home({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    performoperations();
-
+    final email = Google();
+    email.perform();
     return Container(
-      child: Text('daaatas'),
+      child: Text("Hello from Home"),
     );
   }
 }
