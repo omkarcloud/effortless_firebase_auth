@@ -1,3 +1,13 @@
-make cl Facebook f  
+make cl Base r f !str !eq  
 meths 
-b perform 
+s baseError [dy e !n]
+s providerError [dy e !n]
+Widget getWidget
+Widget _getBaseWidget
+
+s sign [BuildContext context !n ] 
+
+params 
+Function onSuccess
+
+

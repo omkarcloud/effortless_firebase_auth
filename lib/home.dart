@@ -23,7 +23,8 @@ class Home extends StatelessWidget {
   perform() async {
     // await signOut();
     // logUser();
-    return await facebookDemo();
+    await googleDemo();
+    // return await facebookDemo();
   }
 
   Future signOut() async {
@@ -31,7 +32,9 @@ class Home extends StatelessWidget {
   }
 
   Future googleDemo() async {
-    final google = Google();
+    final dynamic google = Google();
+    print(google.ss);
+    return;
     await google.perform();
   }
 
