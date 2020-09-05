@@ -1,20 +1,18 @@
-import 'package:meta/meta.dart';
+class Facebook {
+  Facebook();
 
-class Email {
-  Email();
-
-  bool perform({@required String email, @required String password}) {
+  bool perform() {
     print('Hello from perform');
   }
 
   @override
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
-    return o is Email;
+    return o is Facebook;
   }
 
   @override
   String toString() {
-    return 'Email {}';
+    return 'Facebook {}';
   }
 }

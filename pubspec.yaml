@@ -26,12 +26,15 @@ dependencies:
     # firebase_core:
   google_sign_in: '^4.5.1'
   firebase_core: '0.5.0'
+  logger: ^0.9.2
 
   # Add the dependencies for the Firebase products you want to use in your app
   # For example, to use Firebase Authentication and Cloud Firestore
   firebase_auth:
   # cloud_firestore: ^0.12.9+5
   rx_store_ds:
+  flutter_facebook_login:
+  flutter_facebook_auth:
 
 dev_dependencies:
   flutter_test:

@@ -4,6 +4,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meta/meta.dart';
 
+import '../home.dart';
+
 class Google {
   Google();
 
@@ -12,10 +14,13 @@ class Google {
       await signInWithGoogle();
     } catch (e) {
       print(e);
+      throw e;
     }
   }
 
   Future<UserCredential> signInWithGoogle() async {
+    // L.i('aaaaaaaaaaaaaaaa');
+
     // Trigger the authentication flow
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
 

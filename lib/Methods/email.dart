@@ -10,15 +10,10 @@ class Email {
       {@required String email, @required String password}) async {
     try {
       var fa = FirebaseAuth.instance;
-      await fa.signInWithEmailAndPassword(
-          email: email, password: password + '78');
-
-      print('Hello from perform');
+      await fa.signInWithEmailAndPassword(email: email, password: password);
       await emailVerify(fa);
 
       await resetPassword(fa, email);
-
-      print(fa.currentUser);
     } catch (e) {
       print(e);
     }
