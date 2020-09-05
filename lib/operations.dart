@@ -2,7 +2,6 @@ import 'package:allsirsa/infrastructure/api.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-
 import 'package:allsirsa/infrastructure/CategoryApi.dart';
 import 'package:allsirsa/infrastructure/CustomerApi.dart';
 import 'package:allsirsa/infrastructure/OrderApi.dart';
@@ -23,6 +22,9 @@ performoperations() async {
 
   // Get categories
   final categories = await categoryapi.serveCategories();
+  print(categories);
+  return;
+
   // Get Sellers of Category
   final sellerdata = await sellerapi.getallCatSeller(categories.first);
 
