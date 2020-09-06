@@ -35,6 +35,8 @@ dependencies:
   rx_store_ds:
   flutter_facebook_login:
   flutter_facebook_auth:
+  flutter_auth_buttons:
+  # firebase_auth_ui:
 
 dev_dependencies:
   flutter_test:

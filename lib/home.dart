@@ -13,17 +13,18 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    perform();
+    final phone = Phone();
+    phone.inSignIn = true;
 
-    return Container(
-      child: Text("Hello from Home"),
+    return Column(
+      children: [phone.getSignInWidget()],
     );
   }
 
   perform() async {
     // await signOut();
     // logUser();
-    await googleDemo();
+    await phoneDemo();
     // return await facebookDemo();
   }
 
@@ -45,7 +46,8 @@ class Home extends StatelessWidget {
 
   Future phoneDemo() async {
     final phone = Phone();
-    await phone.perform();
+    phone.inSignIn = true;
+    await phone.beginSigning();
   }
 
   Future emailDemo() async {

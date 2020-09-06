@@ -14,11 +14,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Easy Auth',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Easy Auth'),
+      home: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('Easy Auth'),
+          ),
+          body: Home(),
         ),
-        body: Home(),
       ),
     );
   }
