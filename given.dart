@@ -1,27 +1,15 @@
-// import 'package:meta/meta.dart';
+import 'package:meta/meta.dart';
 
-// class Base {
-//   final Function onSuccess;
+class Validation {
+  final List<dynamic> validators;
 
-//   Base({@required this.onSuccess});
+  Validation({@required this.validators});
 
-//   String baseError(dynamic e) {
-//     print('Hello from baseError');
-//   }
+  void add(dynamic f) {
+    print('Hello from add');
+  }
 
-//   String providerError(dynamic e) {
-//     print('Hello from providerError');
-//   }
-
-//   Widget getWidget() {
-//     print('Hello from getWidget');
-//   }
-
-//   Widget _getBaseWidget() {
-//     print('Hello from _getBaseWidget');
-//   }
-
-//   String sign(BuildContext context) {
-//     print('Hello from sign');
-//   }
-// }
+  double remove() {
+    print('Hello from remove');
+  }
+}

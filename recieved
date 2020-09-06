@@ -1,13 +1,6 @@
-make cl Base r f !str !eq  
-meths 
-s baseError [dy e !n]
-s providerError [dy e !n]
-Widget getWidget
-Widget _getBaseWidget
-
-s sign [BuildContext context !n ] 
-
+make cl Validation r f  !str !eq   
 params 
-Function onSuccess
-
-
+ls validators
+meths 
+void add  [dy f !n]
+d remove    

@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 typedef B Function1<A, B>(A a);
 
 bool isNull(dynamic args) {
@@ -21,14 +19,6 @@ bool isFirebaseEx(e) {
     isFirebaseException = false;
   }
   return isFirebaseException;
-}
-
-void showSnackBar(String msg, BuildContext context) {
-  final snackBar = SnackBar(
-    content: Text(msg),
-    duration: Duration(milliseconds: 6500),
-  );
-  Scaffold.of(context).showSnackBar(snackBar);
 }
 
 class FirebaseExceptionData {
