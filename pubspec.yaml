@@ -31,11 +31,18 @@ dependencies:
   # Add the dependencies for the Firebase products you want to use in your app
   # For example, to use Firebase Authentication and Cloud Firestore
   firebase_auth:
+  nice_button:
   # cloud_firestore: ^0.12.9+5
-  rx_store_ds:
-  flutter_facebook_login:
-  flutter_facebook_auth:
+  # rx_store_ds:
+  # flutter_facebook_login:
+  # flutter_facebook_auth:
   flutter_auth_buttons:
+  form_field_validator:
+  flutter_form_builder:
+  global_wings:
+
+
+  # firebase_auth_ui:
   # firebase_auth_ui:
 
 dev_dependencies:

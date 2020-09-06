@@ -16,10 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Easy Auth',
       home: SafeArea(
         child: Scaffold(
-          appBar: AppBar(
-            title: Text('Easy Auth'),
-          ),
-          body: Home(),
+          body: SingleChildScrollView(child: Home()),
         ),
       ),
     );

@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 typedef B Function1<A, B>(A a);
 
 bool isNull(dynamic args) {
@@ -5,6 +7,15 @@ bool isNull(dynamic args) {
     return true;
   }
   return false;
+}
+
+bool validateDate(String value) {
+  try {
+    DateFormat('d/M/yyyy').parse(value);
+    return true;
+  } catch (e) {
+    return false;
+  }
 }
 
 bool isNonNull(dynamic args) {

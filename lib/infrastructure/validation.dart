@@ -1,3 +1,5 @@
+import 'package:form_field_validator/form_field_validator.dart';
+
 import 'utils.dart';
 import 'package:meta/meta.dart';
 
@@ -49,6 +51,7 @@ const notEmpty = ValidationMethod(emptyf, "notEmpty");
 const atleast8chars = ValidationMethod(atleast8charsf, "atleast8chars");
 const confirmPassword = ValidationMethod(confirmPasswordf, "confirmPassword");
 
+// TODO PARAMETRIZE ON EMAIL
 class Validation {
   final List<ValidationMethod> validators;
 

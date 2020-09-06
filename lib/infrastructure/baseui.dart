@@ -18,15 +18,7 @@ abstract class BaseUI extends Base {
           return GestureDetector(
             child: getLayout(inSignIn),
             onTap: () async {
-              final result = await beginSigning();
-              // Null => Sucess
-              // NonNull => Error
-              if (isNonNull(result)) {
-                showSnackBar(result, context);
-              } else {
-                onSuccess(FirebaseAuth.instance.currentUser);
-                L.i('Succesfully Logged In');
-              }
+              await beginTheFlow(context);
             },
           );
         }
@@ -34,6 +26,18 @@ abstract class BaseUI extends Base {
         // return _getWidget(context);
       },
     );
+  }
+
+  Future beginTheFlow(BuildContext context) async {
+    final result = await beginSigning();
+    // Null => Sucess
+    // NonNull => Error
+    if (isNonNull(result)) {
+      showSnackBar(result, context);
+    } else {
+      onSuccess(FirebaseAuth.instance.currentUser);
+      L.i('Succesfully Logged In');
+    }
   }
 
   bool isProvidingFullLayout() {
