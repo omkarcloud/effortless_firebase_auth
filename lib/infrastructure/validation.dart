@@ -106,7 +106,7 @@ class Validation {
 //               if (isNonNull(result)) {
 //                 showSnackBar(result, context);
 //               } else {
-//                 onSuccess(FirebaseAuth.instance.currentUser);
+//                 onSuccess(getAuth().currentUser);
 //                 L.i('Succesfully Logged In');
 //               }
 //             },

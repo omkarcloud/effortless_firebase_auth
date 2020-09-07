@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:allsirsa/Methods/forgot.password.dart';
+import 'package:allsirsa/Methods/send.email.dart';
 import 'package:allsirsa/home.dart';
 import 'package:allsirsa/infrastructure/base.dart';
 import 'package:allsirsa/infrastructure/baseui.dart';
 import 'package:allsirsa/infrastructure/utils.dart';
 import 'package:allsirsa/infrastructure/validators.dart';
+import 'package:allsirsa/screens/signUp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -51,8 +53,11 @@ List<Widget Function(GlobalKey<FormBuilderState>)> getSignUpFields() {
 class EmailConfig {
   List<Function1<GlobalKey<FormBuilderState>, Widget>> signInFields;
   List<Function1<GlobalKey<FormBuilderState>, Widget>> signUpFields;
-
-  EmailConfig({this.signInFields = const [], this.signUpFields = const []}) {
+  bool emailVerificationRequired;
+  EmailConfig(
+      {this.signInFields = const [],
+      this.signUpFields = const [],
+      this.emailVerificationRequired = true}) {
     if ((this.signInFields.isEmpty)) {
       this.signInFields = getSignInFields();
     }
@@ -108,17 +113,35 @@ class Email extends AuthMethod {
     if (isInSignIn) {
       await auth.signInWithEmailAndPassword(email: email, password: password);
 
-      currUser().sendEmailVerification();
-      Timer.periodic(Duration(seconds: 3), (Timer t) async {
-        final user = currUser();
-        await user.reload();
-        print(
-            'firebase auth user state ${currUser().emailVerified} local function user state ${currUser().emailVerified}');
-      });
+      // currUser().sendEmailVerification();
+      // Timer.periodic(Duration(seconds: 3), (Timer t) async {
+      //   final user = currUser();
+      //   await user.reload();
+      //   print(
+      //       'firebase auth user state ${currUser().emailVerified} local function user state ${currUser().emailVerified}');
+      // });
+
     } else {
       await auth.createUserWithEmailAndPassword(
           email: email, password: password);
     }
+  }
+
+  @override
+  Function0<void> onSuccessCallbackBeInvokedByChild(
+      User user, BuildContext context, Map<String, dynamic> data) {
+    return () {
+      if (!config.emailVerificationRequired) {
+        onSuccess(user, context, data);
+      } else {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => EmailVerify(
+                  onSuccess: () {
+                    onSuccess(user, context, data);
+                  },
+                )));
+      }
+    };
   }
 
   @override
@@ -139,9 +162,7 @@ class Email extends AuthMethod {
                         builder: (context) =>
                             ForgotPasswordScreen(themeColor)));
                   },
-                  child: Text(
-                    'Forgot password?',
-                  )),
+                  child: Text('Forgot password?', style: smalltextStyle)),
             ),
           ],
         );
@@ -209,9 +230,8 @@ class _FormokState extends State<Formok> {
                   onPressed: () {
                     isFirstTimeSubmitted = true;
                     if (_fbKey.currentState.saveAndValidate()) {
-                      widget.onSuccess();
                       saveMultiple(_fbKey.currentState.value);
-                      logStore();
+                      widget.onSuccess();
                     }
                     // git diff HEAD~2 HEAD -- email.dart
                   },

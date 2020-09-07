@@ -1,4 +1,5 @@
 import 'package:allsirsa/home.dart';
+import 'package:allsirsa/infrastructure/base.dart';
 import 'package:allsirsa/infrastructure/uiutils.dart';
 import 'package:allsirsa/infrastructure/utils.dart';
 import '../screens/signin.dart';
@@ -26,90 +27,102 @@ class _EmailVerifyState extends State<EmailVerify> {
   @override
   void initState() {
     super.initState();
-
-    currUser().sendEmailVerification();
+    // currUser().sendEmailVerification();
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Builder(builder: (context) {
-          return Center(
-            child: Column(
-              children: [
-                Center(
-                  child: new Text(
-                    "Verify your email to continue",
-                    style: new TextStyle(
-                        fontSize: 34.0,
-                        color: const Color(0xFF000000),
-                        fontWeight: FontWeight.w700,
-                        fontFamily: "Roboto"),
-                  ),
-                ),
-                Text(
-                  // , please confirm the verification email.
-                  "A verificatiom email has been sent to ${serve('email')}.",
-                  style: new TextStyle(
-                      fontSize: 20.0,
-                      color: const Color(0xFF000000),
-                      fontWeight: FontWeight.w500,
-                      fontFamily: "Roboto"),
-                ),
-                Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: NiceButton(
-                        elevation: 8.0,
-                        text: "Email Verified",
-                        radius: 40,
-                        fontSize: 14,
-                        background: getColor(),
-                        onPressed: () {
-                          if (currUser().emailVerified) {
-                            showSnackBar(
-                                'Your Email has been verified', context);
-                            widget.onSuccess();
-                          } else {
-                            showSnackBar('Your Email is not verified', context);
-                          }
-                        },
+        body: SingleChildScrollView(
+          child: Builder(builder: (context) {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Center(
+                      child: buildText(
+                        "Verify your email to continue",
                       ),
                     ),
-                  ],
-                ),
-                Column(
-                  children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: NiceButton(
-                        elevation: 8.0,
-                        text: "Resend Email",
-                        radius: 40,
-                        fontSize: 14,
-                        background: getColor(),
-                        onPressed: () async {
-                          try {
-                            await currUser().sendEmailVerification();
-                            showSnackBar(
-                                'Email verification link has been sent to your email',
-                                context);
-                          } catch (e) {
-                            print(e);
-                            showSnackBar(e.message, context);
-                          }
-                        },
-                      ),
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                          // , please confirm the verification email.
+                          "A verificatiom email has been sent to ${serve('email')}.",
+                          textAlign: TextAlign.center,
+                          style: new TextStyle(
+                              fontSize: 16.0,
+                              color: const Color(0xFF000000),
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Roboto')),
                     ),
+                    Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8),
+                          child: NiceButton(
+                            elevation: 8.0,
+                            text: "Verified the email",
+                            radius: 40,
+                            fontSize: 14,
+                            background: getColor(),
+                            onPressed: () async {
+                              final firebaseErrorMessage =
+                                  await fireErr(() async {
+                                await currUser().reload();
+                                if (currUser().emailVerified) {
+                                  showSnackBar(
+                                      'Your Email has been verified', context);
+                                  await Future.delayed(
+                                      const Duration(seconds: 4), () => "1");
+                                  // Let user see snack bar
+                                  widget.onSuccess();
+                                } else {
+                                  showSnackBar(
+                                      'Your Email is not verified', context);
+                                }
+                              });
+
+                              if (isNonNull(firebaseErrorMessage)) {
+                                showSnackBar(firebaseErrorMessage, context);
+                              }
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8),
+                          child: NiceButton(
+                            elevation: 8.0,
+                            text: "Resend Email",
+                            radius: 40,
+                            fontSize: 14,
+                            background: getColor(),
+                            onPressed: () async {
+                              final firebaseErrorMessage = await fireErr(() {
+                                return currUser().sendEmailVerification();
+                              });
+
+                              if (isNonNull(firebaseErrorMessage)) {
+                                showSnackBar(firebaseErrorMessage, context);
+                              }
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    // Cancel Button
                   ],
                 ),
-                // Cancel Button
-              ],
-            ),
-          );
-        }),
+              ),
+            );
+          }),
+        ),
       ),
     );
   }

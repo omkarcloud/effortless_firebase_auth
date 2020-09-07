@@ -31,7 +31,7 @@ class Home extends StatelessWidget {
     save('email', 'chetansirsa11@gmail.com');
     save('password', '12345678');
 
-    phone.sign(true, FirebaseAuth.instance);
+    phone.sign(true, getAuth());
     return SingleChildScrollView(
       child: Column(
         children: [phone.getSignInWidget()],
@@ -47,7 +47,7 @@ class Home extends StatelessWidget {
   }
 
   Future signOut() async {
-    await FirebaseAuth.instance.signOut();
+    await getAuth().signOut();
   }
 
   Future googleDemo() async {

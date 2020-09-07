@@ -1,3 +1,4 @@
+import 'package:allsirsa/Methods/email.dart';
 import 'package:allsirsa/infrastructure/uiutils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,15 @@ import '../home.dart';
 import 'base.dart';
 import 'utils.dart';
 
+const SingleSignOn = 'SingleSignOn';
+
 abstract class AuthMethod extends Base {
+  Color themeColor;
+
+  String getName() {
+    return 'SingleSignOn';
+  }
+
   Widget getSignInWidget() {
     assert(isNonNull(inSignIn));
 
@@ -19,7 +28,7 @@ abstract class AuthMethod extends Base {
           return GestureDetector(
             child: getLayout(inSignIn),
             onTap: () async {
-              await beginTheFlow(context);
+              await beginTheProcess(context);
             },
           );
         }
@@ -29,16 +38,27 @@ abstract class AuthMethod extends Base {
     );
   }
 
-  Future beginTheFlow(BuildContext context) async {
+  Future beginTheProcess(BuildContext context) async {
     final result = await beginSigning();
     // Null => Sucess
     // NonNull => Error
     if (isNonNull(result)) {
       showSnackBar(result, context);
     } else {
-      onSuccess(currUser(), context, serveStore());
-      L.i('Succesfully Logged In');
+      if (isNull(onSuccessCallbackBeInvokedByChild(
+          currUser(), context, serveStore()))) {
+        onSuccess(currUser(), context, serveStore());
+      } else {
+        final f = onSuccessCallbackBeInvokedByChild(
+            currUser(), context, serveStore());
+        f();
+      }
     }
+  }
+
+  Function0<void> onSuccessCallbackBeInvokedByChild(
+      User user, BuildContext context, Map<String, dynamic> data) {
+    return null;
   }
 
   bool isProvidingFullLayout() {

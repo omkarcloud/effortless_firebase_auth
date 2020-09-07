@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Easy Auth',
       home: SignIn(
+        themeColor: Colors.purple,
         methods: [Email(config: EmailConfig())],
         auth: FirebaseAuth.instance,
         onSuccess: (user, buildContext, fields) {},

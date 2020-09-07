@@ -67,16 +67,20 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       }).toList(),
                       onSuccess: () async {
                         final email = serve('forgotpassword-email');
-
                         // FirebaseAuth.instance.currentUser.reload()
-                        final firebaseErrorMessage = await fireErr(() {
-                          return resetPassword(getAuth(), email);
+                        final firebaseErrorMessage = await fireErr(() async {
+                          await resetPassword(getAuth(), email);
+                          showSnackBar(
+                              'Email has been sent to $email.', context);
+
+                          await Future.delayed(
+                              const Duration(seconds: 4), () => "1");
+
+                          Navigator.of(context).pop();
                         });
                         if (isNonNull(firebaseErrorMessage)) {
                           showSnackBar(firebaseErrorMessage, context);
                         }
-
-                        Navigator.of(context).pop();
                       },
                     );
                   }),

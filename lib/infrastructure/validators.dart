@@ -41,39 +41,40 @@ Widget fieldToFormField(Field args, GlobalKey<FormBuilderState> key) {
   );
 }
 
-final emailFeild = (Field()
+Field get emailFeild => (Field()
   ..attribute = 'email'
   ..labelText = 'Email'
   ..keyboardType = TextInputType.emailAddress
   ..validate = emailValidator);
 
-final passwordFeild = (Field()
+Field get passwordFeild => (Field()
   ..attribute = 'password'
   ..labelText = 'Password'
   ..obscureText = true
   ..validate = passwordValidator);
 
-final nameField = (Field()
+Field get nameField => (Field()
   ..attribute = 'name'
   ..labelText = 'Name'
   ..keyboardType = null
   ..validate = RequiredValidator(errorText: 'name is required'));
 
-final passwordValidator = MultiValidator([
-  RequiredValidator(errorText: 'password is required'),
-  MinLengthValidator(8, errorText: 'password must be at least 8 digits long'),
-  PatternValidator(r'(?=.*?[#?!@$%^&*-])',
-      errorText: 'passwords must have at least one special character')
-]);
+MultiValidator get passwordValidator => MultiValidator([
+      RequiredValidator(errorText: 'password is required'),
+      MinLengthValidator(8,
+          errorText: 'password must be at least 8 digits long'),
+      PatternValidator(r'(?=.*?[#?!@$%^&*-])',
+          errorText: 'passwords must have at least one special character')
+    ]);
 
-final emailValidator = MultiValidator([
-  RequiredValidator(errorText: 'email is required'),
-  PatternValidator(
-      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
-      errorText: 'enter a valid email address')
+MultiValidator get emailValidator => MultiValidator([
+      RequiredValidator(errorText: 'email is required'),
+      PatternValidator(
+          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+          errorText: 'enter a valid email address')
 
-  // EmailValidator(errorText: 'enter a valid email address')
-]);
+      // EmailValidator(errorText: 'enter a valid email address')
+    ]);
 
 class DateValidatation extends TextFieldValidator {
   // pass the error text to the super constructor
