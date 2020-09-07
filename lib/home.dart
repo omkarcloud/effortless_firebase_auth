@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:allsirsa/Methods/email.dart';
 import 'package:allsirsa/Methods/fb.dart';
 import 'package:allsirsa/Methods/google.dart';
 import 'package:allsirsa/Methods/phone.dart';
+import 'package:allsirsa/infrastructure/base.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:global_wings/global_wings.dart';
@@ -17,9 +20,17 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final phone = Email(config: EmailConfig());
+    Timer.periodic(Duration(seconds: 3), (Timer t) async {
+      final user = currUser();
+      await user.reload();
+      // print(
+      //     'firebase auth user state ${currUser().emailVerified} local function user state ${currUser().emailVerified}');
+    });
+
     phone.inSignIn = true;
     save('email', 'chetansirsa11@gmail.com');
     save('password', '12345678');
+
     phone.sign(true, FirebaseAuth.instance);
     return SingleChildScrollView(
       child: Column(
@@ -64,7 +75,7 @@ class Home extends StatelessWidget {
 }
 
 User currUser() {
-  return FirebaseAuth.instance.currentUser;
+  return getAuth().currentUser;
 }
 
 logUser() {

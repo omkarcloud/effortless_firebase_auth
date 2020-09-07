@@ -1,3 +1,7 @@
+import 'package:allsirsa/Methods/email.dart';
+import 'package:allsirsa/Methods/send.email.dart';
+import 'package:allsirsa/screens/signin.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // import 'package:firebase/firebase.dart';
 import 'home.dart';
@@ -14,10 +18,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Easy Auth',
-      home: SafeArea(
-        child: Scaffold(
-          body: SingleChildScrollView(child: Home()),
-        ),
+      home: SignIn(
+        methods: [Email(config: EmailConfig())],
+        auth: FirebaseAuth.instance,
+        onSuccess: (user, buildContext, fields) {},
       ),
     );
   }

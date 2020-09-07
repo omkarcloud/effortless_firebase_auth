@@ -1,30 +1,23 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 
-class Validation extends StatefulWidget {
-   final List<dynamic> validators;
+// class SignIn extends StatefulWidget {
+//   final List<Base> methods;
+//   final Function onSuccess;
 
-   Validation({@required this.validators, Key key}) : super(key : key);
+//   SignIn({@required this.methods, @required this.onSuccess, Key key})
+//       : super(key: key);
 
-   void add(dynamic f){
-      print('Hello from add');
-   }
+//   @override
+//   _SignInState createState() {
+//     return _SignInState();
+//   }
+// }
 
-   double remove(){
-      print('Hello from remove');
-   }
-
-   @override
-   _ValidationState createState(){
-      return _ValidationState();
-   }
-
-}
-
-class _ValidationState extends State<Validation> {
-
-   @override
-   Widget build(BuildContext context){
-      return Container(child: Text("Hello from Validation"),);
-   }
-
-}
+// class _SignInState extends State<SignIn> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       child: Text("Hello from SignIn"),
+//     );
+//   }
+// }

@@ -1,12 +1,13 @@
 import 'package:allsirsa/infrastructure/uiutils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:global_wings/store.dart';
 
 import '../home.dart';
 import 'base.dart';
 import 'utils.dart';
 
-abstract class BaseUI extends Base {
+abstract class AuthMethod extends Base {
   Widget getSignInWidget() {
     assert(isNonNull(inSignIn));
 
@@ -35,7 +36,7 @@ abstract class BaseUI extends Base {
     if (isNonNull(result)) {
       showSnackBar(result, context);
     } else {
-      onSuccess(FirebaseAuth.instance.currentUser);
+      onSuccess(currUser(), context, serveStore());
       L.i('Succesfully Logged In');
     }
   }

@@ -5,5 +5,12 @@ void name(BuildContext context) {
     builder: (context) => Container(),
   ));
 }
+
+void signInWidget(args) {}
+
+class VerificationMethod {
+  final google = 'google';
+}
+
 // Verification method
 // variables that were used

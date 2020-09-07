@@ -1,7 +1,4 @@
-make cl Validation r f  !str !eq   stf
+make cl SignIn r f  !str !eq   stf
 params 
-ls validators
-
-meths 
-void add  [dy f !n]
-d remove    
+lsAuthMethod methods
+Function onSuccess

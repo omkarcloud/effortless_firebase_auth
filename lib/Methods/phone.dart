@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 
-class Phone extends BaseUI {
+class Phone extends AuthMethod {
   Phone();
 
   @override

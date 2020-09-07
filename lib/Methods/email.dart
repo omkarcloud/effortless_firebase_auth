@@ -48,20 +48,20 @@ List<Widget Function(GlobalKey<FormBuilderState>)> getSignUpFields() {
 }
 
 class EmailConfig {
-  List<Function1<GlobalKey<FormBuilderState>, Widget>> signIn;
-  List<Function1<GlobalKey<FormBuilderState>, Widget>> signUp;
+  List<Function1<GlobalKey<FormBuilderState>, Widget>> signInFields;
+  List<Function1<GlobalKey<FormBuilderState>, Widget>> signUpFields;
 
-  EmailConfig({this.signIn = const [], this.signUp = const []}) {
-    if ((this.signIn.isEmpty)) {
-      this.signIn = getSignInFields();
+  EmailConfig({this.signInFields = const [], this.signUpFields = const []}) {
+    if ((this.signInFields.isEmpty)) {
+      this.signInFields = getSignInFields();
     }
-    if ((this.signUp.isEmpty)) {
-      this.signUp = getSignUpFields();
+    if ((this.signUpFields.isEmpty)) {
+      this.signUpFields = getSignUpFields();
     }
   }
 }
 
-class Email extends BaseUI {
+class Email extends AuthMethod {
   final EmailConfig config;
   Email({@required this.config});
 
@@ -123,7 +123,7 @@ class Email extends BaseUI {
         return Column(
           children: [
             Formok(
-                fields: config.signIn,
+                fields: config.signInFields,
                 onSuccess: () async {
                   await beginTheFlow(context);
                 }),
@@ -159,7 +159,7 @@ class Email extends BaseUI {
         return Column(
           children: [
             Formok(
-              fields: config.signUp,
+              fields: config.signUpFields,
               onSuccess: () async {
                 await beginTheFlow(context);
               },

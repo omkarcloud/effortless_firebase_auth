@@ -1,18 +1,33 @@
+import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'utils.dart';
 
+typedef D Function3<A, B, C, D>(A a, B b, C c);
+
+FirebaseAuth _auth;
+setAuth(FirebaseAuth a) {
+  assert(isNonNull(a));
+  _auth = a;
+}
+
+getAuth() {
+  assert(isNonNull(_auth));
+  return _auth;
+}
+
 abstract class Base {
-  final Function1<User, dynamic> onSuccess;
-  final FirebaseAuth auth;
+  Function3<User, BuildContext, Map<String, dynamic>, dynamic> onSuccess;
   // Either in SignIn Flow or in SignOut Flow
   bool inSignIn;
 
-  Base({
-    @required this.onSuccess,
-    @required this.auth,
-  });
+  Base();
+
+  void setOnSuccess(
+      Function3<User, BuildContext, Map<String, dynamic>, dynamic> args) {
+    onSuccess = args;
+  }
 
   // Handles error not handles by Providing Auth Service
   String baseerrMsg(
@@ -58,7 +73,7 @@ abstract class Base {
     assert(isNonNull(inSignIn));
 
     try {
-      await sign(inSignIn, auth);
+      await sign(inSignIn, getAuth());
       return null;
     } catch (e) {
       if (isFirebaseEx(e)) {
