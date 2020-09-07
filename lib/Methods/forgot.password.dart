@@ -3,7 +3,6 @@ import 'package:allsirsa/infrastructure/uiutils.dart';
 import 'package:allsirsa/infrastructure/utils.dart';
 import 'package:allsirsa/infrastructure/validators.dart';
 import 'package:allsirsa/screens/signin.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:global_wings/global_wings.dart';
@@ -31,6 +30,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           child: Center(
             child: Column(
               children: [
+                Px50(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -55,15 +55,23 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     ],
                   ),
                 ),
+                Px20(),
                 Center(
                   child: Builder(builder: (context) {
                     return Formok(
                       widget.themeColor,
+                      onPressed: () {
+                        isFirstTimeSubmittedForgotPassword = true;
+                      },
                       fields: [
                         emailFeild..attribute = 'forgotpassword-email',
                       ].map((e) {
                         return ((GlobalKey<FormBuilderState> a) =>
-                            fieldToFormField(e, a));
+                            fieldToFormField(e, a, (v) {
+                              if (isFirstTimeSubmittedForgotPassword) {
+                                a.currentState.saveAndValidate();
+                              }
+                            }));
                       }).toList(),
                       onSuccess: () async {
                         final email = serve('forgotpassword-email');

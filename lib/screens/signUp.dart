@@ -74,6 +74,7 @@ class _SignUpState extends State<SignUp> {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
+                  Px50(),
                   Center(
                     child: Padding(
                       padding: const EdgeInsets.all(14.0),
@@ -82,6 +83,7 @@ class _SignUpState extends State<SignUp> {
                       ),
                     ),
                   ),
+                  Px20(),
                   ...getSSOWidget(),
                   hasEmail(widget.methods)
                       ? Column(

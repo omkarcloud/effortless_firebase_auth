@@ -75,6 +75,7 @@ class _SignInState extends State<SignIn> {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
+                  Px50(),
                   Center(
                     child: Padding(
                       padding: const EdgeInsets.all(14.0),
@@ -83,6 +84,7 @@ class _SignInState extends State<SignIn> {
                       ),
                     ),
                   ),
+                  Px20(),
                   ...getSSOWidget(),
                   hasEmail(widget.methods)
                       ? Column(
@@ -144,6 +146,32 @@ class _SignInState extends State<SignIn> {
   }
 }
 
+class Px20 extends StatelessWidget {
+  const Px20({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 20,
+    );
+  }
+}
+
+class Px50 extends StatelessWidget {
+  const Px50({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 50,
+    );
+  }
+}
+
 Text buildText(String s) {
   return Text(
     s,
@@ -162,26 +190,39 @@ class OrWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       children: [
-        Expanded(
-          child: Container(
-            height: 0.5,
-            color: Colors.black,
+        SizedBox(
+          height: 20,
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Expanded(
+                child: Container(
+                  height: 0.5,
+                  color: Colors.black,
+                ),
+              ),
+              Text(
+                '   OR   ',
+                style: new TextStyle(
+                    color: const Color(0xFF000000),
+                    fontWeight: FontWeight.w700,
+                    fontFamily: "Roboto"),
+              ),
+              Expanded(
+                child: Container(
+                  height: 0.5,
+                  color: Colors.black,
+                ),
+              ),
+            ],
           ),
         ),
-        Text(
-          '   OR   ',
-          style: new TextStyle(
-              color: const Color(0xFF000000),
-              fontWeight: FontWeight.w700,
-              fontFamily: "Roboto"),
-        ),
-        Expanded(
-          child: Container(
-            height: 0.5,
-            color: Colors.black,
-          ),
+        SizedBox(
+          height: 20,
         ),
       ],
     );

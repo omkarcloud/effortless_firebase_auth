@@ -22,13 +22,15 @@ abstract class AuthMethod extends Base {
 
     return Builder(
       builder: (context) {
+        return getLayout(inSignIn, context);
+
         if (isProvidingFullLayout()) {
-          return getLayout(inSignIn);
+          return getLayout(inSignIn, context);
         } else {
           return GestureDetector(
-            child: getLayout(inSignIn),
+            child: getLayout(inSignIn, context),
             onTap: () async {
-              await beginTheProcess(context);
+              await startSigning(context);
             },
           );
         }
@@ -38,7 +40,7 @@ abstract class AuthMethod extends Base {
     );
   }
 
-  Future beginTheProcess(BuildContext context) async {
+  Future startSigning(BuildContext context) async {
     final result = await beginSigning();
     // Null => Sucess
     // NonNull => Error
@@ -66,5 +68,5 @@ abstract class AuthMethod extends Base {
   }
 
   // Will call sign
-  Widget getLayout(bool isInSignIn);
+  Widget getLayout(bool isInSignIn, BuildContext context);
 }

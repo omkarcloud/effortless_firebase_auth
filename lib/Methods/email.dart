@@ -36,7 +36,11 @@ List<Widget Function(GlobalKey<FormBuilderState>)> getSignInFields() {
     emailFeild,
     passwordFeild,
   ].map((e) {
-    return ((GlobalKey<FormBuilderState> a) => fieldToFormField(e, a));
+    return ((GlobalKey<FormBuilderState> a) => fieldToFormField(e, a, (v) {
+          if (isFirstTimeSubmittedSignIn) {
+            a.currentState.saveAndValidate();
+          }
+        }));
   }).toList();
 }
 
@@ -46,7 +50,11 @@ List<Widget Function(GlobalKey<FormBuilderState>)> getSignUpFields() {
     emailFeild,
     passwordFeild,
   ].map((e) {
-    return ((GlobalKey<FormBuilderState> a) => fieldToFormField(e, a));
+    return ((GlobalKey<FormBuilderState> a) => fieldToFormField(e, a, (v) {
+          if (isFirstTimeSubmittedSignUp) {
+            a.currentState.saveAndValidate();
+          }
+        }));
   }).toList();
 }
 
@@ -103,7 +111,7 @@ class Email extends AuthMethod {
   }
 
   @override
-  Future sign(bool isInSignIn, FirebaseAuth auth) async {
+  Future<void> sign(bool isInSignIn, FirebaseAuth auth) async {
     final email = serve('email');
     final password = serve('password');
 
@@ -145,15 +153,21 @@ class Email extends AuthMethod {
   }
 
   @override
-  Widget getLayout(bool isInSignIn) {
+  Widget getLayout(bool isInSignIn, BuildContext context) {
     if (isInSignIn) {
       return Builder(builder: (context) {
         return Column(
           children: [
-            Formok(themeColor, fields: config.signInFields,
-                onSuccess: () async {
-              await beginTheProcess(context);
-            }),
+            Formok(
+              themeColor,
+              fields: config.signInFields,
+              onSuccess: () async {
+                await startSigning(context);
+              },
+              onPressed: () {
+                isFirstTimeSubmittedSignIn = true;
+              },
+            ),
             Padding(
               padding: const EdgeInsets.only(top: 14.0),
               child: GestureDetector(
@@ -173,9 +187,12 @@ class Email extends AuthMethod {
           children: [
             Formok(
               themeColor,
+              onPressed: () {
+                isFirstTimeSubmittedSignUp = true;
+              },
               fields: config.signUpFields,
               onSuccess: () async {
-                await beginTheProcess(context);
+                await startSigning(context);
               },
             ),
           ],
@@ -189,13 +206,15 @@ typedef A Function0<A>();
 
 class Formok extends StatefulWidget {
   final List<Function1<GlobalKey<FormBuilderState>, Widget>> fields;
-  final Function0 onSuccess;
+  final Function0 onSuccess, onPressed;
   final Color themeColor;
+
   const Formok(
     this.themeColor, {
     Key key,
     this.fields,
     @required this.onSuccess,
+    @required this.onPressed,
   }) : super(key: key);
 
   @override
@@ -219,6 +238,9 @@ class _FormokState extends State<Formok> {
         Center(
           child: Column(
             children: <Widget>[
+              SizedBox(
+                height: 20,
+              ),
               Padding(
                 padding: const EdgeInsets.only(top: 8),
                 child: NiceButton(
@@ -228,7 +250,8 @@ class _FormokState extends State<Formok> {
                   fontSize: 14,
                   background: widget.themeColor,
                   onPressed: () {
-                    isFirstTimeSubmitted = true;
+                    // isFirstTimeSubmitted = true;
+                    widget.onPressed();
                     if (_fbKey.currentState.saveAndValidate()) {
                       saveMultiple(_fbKey.currentState.value);
                       widget.onSuccess();
@@ -239,7 +262,10 @@ class _FormokState extends State<Formok> {
               ),
             ],
           ),
-        )
+        ),
+        SizedBox(
+          height: 20,
+        ),
       ],
     );
   }

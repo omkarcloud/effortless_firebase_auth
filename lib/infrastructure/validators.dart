@@ -12,18 +12,22 @@ class Field {
   TextInputType keyboardType;
 }
 
-bool isFirstTimeSubmitted = false;
+bool isFirstTimeSubmittedSignUp = false;
+// (value) {
+//         if (isFirstTimeSubmitted) {
+//           key.currentState.saveAndValidate();
+//         }
+//       },
+bool isFirstTimeSubmittedForgotPassword = false;
+bool isFirstTimeSubmittedSignIn = false;
 
-Widget fieldToFormField(Field args, GlobalKey<FormBuilderState> key) {
+Widget fieldToFormField(
+    Field args, GlobalKey<FormBuilderState> key, ValueChanged onChanged) {
   return Padding(
     padding: const EdgeInsets.fromLTRB(12, 4, 12, 4),
     child: FormBuilderTextField(
       attribute: args.attribute,
-      onChanged: (value) {
-        if (isFirstTimeSubmitted) {
-          key.currentState.saveAndValidate();
-        }
-      },
+      onChanged: onChanged,
       keyboardType: args.keyboardType,
       obscureText: args.obscureText,
       decoration: new InputDecoration(

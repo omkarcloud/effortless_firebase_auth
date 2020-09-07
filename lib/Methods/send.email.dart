@@ -27,6 +27,10 @@ class _EmailVerifyState extends State<EmailVerify> {
   @override
   void initState() {
     super.initState();
+    fireErr(() async {
+      await currUser().sendEmailVerification();
+    });
+
     // currUser().sendEmailVerification();
   }
 
@@ -41,6 +45,7 @@ class _EmailVerifyState extends State<EmailVerify> {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
+                    Px50(),
                     Center(
                       child: buildText(
                         "Verify your email to continue",
@@ -58,6 +63,20 @@ class _EmailVerifyState extends State<EmailVerify> {
                               fontWeight: FontWeight.w500,
                               fontFamily: 'Roboto')),
                     ),
+                    Px20(),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16.0, 0, 16.0, 8.0),
+                      child: Text(
+                          // , please confirm the verification email.
+                          "Tap the below button once you have completed the verification process.",
+                          textAlign: TextAlign.center,
+                          style: new TextStyle(
+                              fontSize: 16.0,
+                              color: const Color(0xFF000000),
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Roboto')),
+                    ),
+
                     Column(
                       children: <Widget>[
                         Padding(
@@ -72,12 +91,14 @@ class _EmailVerifyState extends State<EmailVerify> {
                               final firebaseErrorMessage =
                                   await fireErr(() async {
                                 await currUser().reload();
+
                                 if (currUser().emailVerified) {
                                   showSnackBar(
                                       'Your Email has been verified', context);
                                   await Future.delayed(
                                       const Duration(seconds: 4), () => "1");
                                   // Let user see snack bar
+                                  Navigator.of(context).pop();
                                   widget.onSuccess();
                                 } else {
                                   showSnackBar(
@@ -96,7 +117,7 @@ class _EmailVerifyState extends State<EmailVerify> {
                     Column(
                       children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.only(top: 8),
+                          padding: const EdgeInsets.only(top: 16),
                           child: NiceButton(
                             elevation: 8.0,
                             text: "Resend Email",

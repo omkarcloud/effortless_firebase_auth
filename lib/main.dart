@@ -1,9 +1,12 @@
 import 'package:allsirsa/Methods/email.dart';
+import 'package:allsirsa/Methods/phone.dart';
 import 'package:allsirsa/Methods/send.email.dart';
+import 'package:allsirsa/infrastructure/uiutils.dart';
 import 'package:allsirsa/screens/signin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // import 'package:firebase/firebase.dart';
+import 'Methods/google.dart';
 import 'home.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -18,11 +21,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Easy Auth',
+      debugShowCheckedModeBanner: false,
       home: SignIn(
-        themeColor: Colors.purple,
-        methods: [Email(config: EmailConfig())],
+        themeColor: Colors.deepPurple,
+        methods: [
+          Google(),
+          Email(config: EmailConfig(emailVerificationRequired: false))
+        ],
         auth: FirebaseAuth.instance,
-        onSuccess: (user, buildContext, fields) {},
+        onSuccess: (user, context, fields) {
+          showSnackBar(
+              'You made the signUp flow in record time. Cheers.', context);
+          print('user: $user \n fields: $fields');
+        },
       ),
     );
   }

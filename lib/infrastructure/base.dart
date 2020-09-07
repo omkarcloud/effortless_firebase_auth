@@ -68,7 +68,9 @@ abstract class Base {
     dynamic e,
     bool isFirebaseException,
     FirebaseExceptionData fe,
-  );
+  ) {
+    return null;
+  }
 
   Future<String> beginSigning() async {
     assert(isNonNull(inSignIn));
@@ -101,7 +103,7 @@ abstract class Base {
     }
   }
 
-  Future sign(bool isInSignIn, FirebaseAuth auth);
+  Future<void> sign(bool isInSignIn, FirebaseAuth auth);
 }
 
 /**

@@ -1,18 +1,15 @@
 import 'package:allsirsa/home.dart';
 import 'package:allsirsa/infrastructure/base.dart';
 import 'package:allsirsa/infrastructure/baseui.dart';
+import 'package:allsirsa/infrastructure/uiutils.dart';
 import 'package:allsirsa/infrastructure/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
+import 'package:nice_button/nice_button.dart';
 
 class Phone extends AuthMethod {
   Phone();
-
-  @override
-  bool isProvidingFullLayout() {
-    return true;
-  }
 
   @override
   String errMsg(e, bool isFirebaseException, FirebaseExceptionData fe) {
@@ -21,39 +18,25 @@ class Phone extends AuthMethod {
   }
 
   @override
-  Future sign(bool isInSignIn, FirebaseAuth auth) {
-    print('sign');
-    // TODO: implement sign
-    throw UnimplementedError();
+  Future<void> sign(bool isInSignIn, FirebaseAuth auth) async {
+    print('object');
   }
 
-// GestureDetector(
-//                   onTap: () {
-//                     Navigator.of(context).pop();
-//                   },
-//                   child: Container(
-//                     child: Text('data'),
-//                   ),
-//                 )
   @override
-  Widget getLayout(bool isInSignIn) {
-    return Builder(builder: (context) {
-      return GoogleSignInButton(
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) {
-              return SafeArea(
-                child: Scaffold(body: TwitterSignInButton(onPressed: () {
-                  Navigator.of(context).pop();
-                })),
-              );
-            },
-          ));
-        },
-        centered: true,
-        splashColor: Colors.white,
-      );
-    });
+  Widget getLayout(bool isInSignIn, BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(0),
+      child: NiceButton(
+          elevation: 8.0,
+          onPressed: () {
+            startSigning(context);
+          },
+          text: "Facebook",
+          width: double.infinity,
+          radius: 40,
+          fontSize: 16,
+          background: Colors.blue[900]),
+    );
   }
 }
 
