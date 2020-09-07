@@ -59,7 +59,7 @@ class Phone extends AuthMethod {
 
 Future<bool> perform() async {
   try {
-    final auth = FirebaseAuth.instance;
+    final auth = getAuth();
     await auth.verifyPhoneNumber(
       phoneNumber: '+91 44 4444 4444',
       verificationCompleted: (PhoneAuthCredential credential) async {

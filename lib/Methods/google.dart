@@ -1,3 +1,4 @@
+import 'package:allsirsa/infrastructure/base.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -30,6 +31,6 @@ class Google {
     );
 
     // Once signed in, return the UserCredential
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+    return await getAuth().signInWithCredential(credential);
   }
 }

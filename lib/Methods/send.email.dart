@@ -1,5 +1,7 @@
 import 'package:allsirsa/home.dart';
 import 'package:allsirsa/infrastructure/uiutils.dart';
+import 'package:allsirsa/infrastructure/utils.dart';
+import '../screens/signin.dart';
 import 'package:flutter/material.dart';
 import 'package:global_wings/global_wings.dart';
 import 'package:nice_button/NiceButton.dart';
@@ -64,7 +66,7 @@ class _EmailVerifyState extends State<EmailVerify> {
                         text: "Email Verified",
                         radius: 40,
                         fontSize: 14,
-                        background: theme,
+                        background: getColor(),
                         onPressed: () {
                           if (currUser().emailVerified) {
                             showSnackBar(
@@ -87,7 +89,7 @@ class _EmailVerifyState extends State<EmailVerify> {
                         text: "Resend Email",
                         radius: 40,
                         fontSize: 14,
-                        background: theme,
+                        background: getColor(),
                         onPressed: () async {
                           try {
                             await currUser().sendEmailVerification();

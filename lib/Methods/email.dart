@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:allsirsa/Methods/forgot.password.dart';
 import 'package:allsirsa/home.dart';
+import 'package:allsirsa/infrastructure/base.dart';
 import 'package:allsirsa/infrastructure/baseui.dart';
 import 'package:allsirsa/infrastructure/utils.dart';
 import 'package:allsirsa/infrastructure/validators.dart';
@@ -23,7 +24,7 @@ Future emailVerify(FirebaseAuth fa) async {
 }
 
 Future<UserCredential> register(String email, String password) async {
-  final user = await FirebaseAuth.instance
+  final user = await getAuth()
       .createUserWithEmailAndPassword(email: email, password: password);
   return user;
 }
@@ -70,7 +71,7 @@ class Email extends AuthMethod {
     final a = TextFormField(
         validator: EmailValidator(errorText: 'enter a valid email address'));
     try {
-      var fa = FirebaseAuth.instance;
+      var fa = getAuth();
       await fa.signInWithEmailAndPassword(email: email, password: password);
       currUser().reload();
 
@@ -82,6 +83,11 @@ class Email extends AuthMethod {
   }
 
   @override
+  String getName() {
+    return 'email';
+  }
+
+  @override
   bool isProvidingFullLayout() {
     return true;
   }
@@ -89,7 +95,6 @@ class Email extends AuthMethod {
   @override
   String errMsg(e, bool isFirebaseException, FirebaseExceptionData fe) {
     print('errMsg $e $isFirebaseException $fe');
-    return 'sss';
   }
 
   @override
@@ -122,33 +127,20 @@ class Email extends AuthMethod {
       return Builder(builder: (context) {
         return Column(
           children: [
-            Formok(
-                fields: config.signInFields,
+            Formok(themeColor, fields: config.signInFields,
                 onSuccess: () async {
-                  await beginTheFlow(context);
-                }),
+              await beginTheProcess(context);
+            }),
             Padding(
               padding: const EdgeInsets.only(top: 14.0),
               child: GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ForgotPasswordScreen()));
+                        builder: (context) =>
+                            ForgotPasswordScreen(themeColor)));
                   },
                   child: Text(
                     'Forgot password?',
-                  )),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 14.0),
-              child: GestureDetector(
-                  onTap: () {
-                    // Navigator.of(context).push(
-                    //           MaterialPageRoute(
-                    //             builder: (context) => Demo2Page()
-                    //           ),
-                  },
-                  child: Text(
-                    'Don\'t have an account? Sign Up',
                   )),
             ),
           ],
@@ -159,18 +151,12 @@ class Email extends AuthMethod {
         return Column(
           children: [
             Formok(
+              themeColor,
               fields: config.signUpFields,
               onSuccess: () async {
-                await beginTheFlow(context);
+                await beginTheProcess(context);
               },
             ),
-            GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text(
-                  'Already have an account? Sign In',
-                )),
           ],
         );
       });
@@ -183,7 +169,9 @@ typedef A Function0<A>();
 class Formok extends StatefulWidget {
   final List<Function1<GlobalKey<FormBuilderState>, Widget>> fields;
   final Function0 onSuccess;
-  const Formok({
+  final Color themeColor;
+  const Formok(
+    this.themeColor, {
     Key key,
     this.fields,
     @required this.onSuccess,
@@ -192,8 +180,6 @@ class Formok extends StatefulWidget {
   @override
   _FormokState createState() => _FormokState();
 }
-
-final theme = Colors.blue;
 
 class _FormokState extends State<Formok> {
   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
@@ -219,8 +205,16 @@ class _FormokState extends State<Formok> {
                   text: "Submit",
                   radius: 40,
                   fontSize: 14,
-                  background: theme,
-                  onPressed: () {},
+                  background: widget.themeColor,
+                  onPressed: () {
+                    isFirstTimeSubmitted = true;
+                    if (_fbKey.currentState.saveAndValidate()) {
+                      widget.onSuccess();
+                      saveMultiple(_fbKey.currentState.value);
+                      logStore();
+                    }
+                    // git diff HEAD~2 HEAD -- email.dart
+                  },
                 ),
               ),
             ],
