@@ -1,10 +1,8 @@
+![Alt text](screenshots/thumbnail.jpg)
+
 # The purpose of the library is to provide you with a complete SignIn-SignUp Flow Solution. NO STATE NO Headache.
 
 The detailed documentation of the package is available at https://awesome11activity.gitbook.io/effortless-auth/ as it is more convenient to follow.
-
-### ScreenShots
-
-![Alt text](/images/thumb.pmg)
 
 # The Capabilities are as follows
 
