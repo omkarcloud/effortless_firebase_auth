@@ -11,6 +11,3 @@ void signInWidget(args) {}
 class VerificationMethod {
   final google = 'google';
 }
-
-// Verification method
-// variables that were used

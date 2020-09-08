@@ -1,11 +1,9 @@
 import 'package:allsirsa/home.dart';
 import 'package:allsirsa/infrastructure/base.dart';
 import 'package:allsirsa/infrastructure/baseui.dart';
-import 'package:allsirsa/infrastructure/uiutils.dart';
 import 'package:allsirsa/infrastructure/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:nice_button/nice_button.dart';
 
 class Phone extends AuthMethod {

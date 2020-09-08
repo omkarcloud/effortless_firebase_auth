@@ -5,7 +5,6 @@ import 'package:allsirsa/infrastructure/utils.dart';
 import 'package:allsirsa/screens/signUp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:global_wings/global_wings.dart';
 
 class SignIn extends StatefulWidget {
   final List<AuthMethod> methods;
@@ -53,7 +52,7 @@ Color getColor() {
 }
 
 /**
-* A simple and no headache solution to implement Responsiveness
+* A simple and no headache solution to implement Responsiveness across Tablets and Desktop.
 * It uses the Widely accepted simple fact that you can bascially limit the maxwidth and center the Screen to make it look good on tablets and Desktops.
 * It is used by the library to implement responsiveness for all screens (viz SignIn, SignUp, EmalVerify...)
 *    
