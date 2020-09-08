@@ -4,7 +4,7 @@ The detailed documentation of the package is available at https://awesome11activ
 
 ### ScreenShots
 
-![Alt text](/images/thumb.pmg)
+![Alt text] (/images/thumb.pmg)
 
 # The Capabilities are as follows
 
