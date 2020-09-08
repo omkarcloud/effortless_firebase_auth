@@ -1,6 +1,6 @@
 ![Alt text](screenshots/thumbnail.jpg)
 
-# The purpose of the library is to provide you with a complete SignIn-SignUp Flow Solution. NO STATE NO Headache.
+# The purpose of the library is to provide you with a complete SignIn-SignUp Flow Solution with email verification, forgot password and google sign in.
 
 The detailed documentation of the package is available at https://awesome11activity.gitbook.io/effortless-auth/ as it is more convenient to follow.
 
