@@ -1,6 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:fullfirebaseauth/fullfirebaseauth.dart';
+import 'package:easy_firebase_auth/easy_firebase_auth.dart';
+
+/// A Calculator.
+class Calculator {
+  /// Returns [value] plus 1.
+  int addOne(int value) => value + 1;
+}
 
 void main() {
   test('adds one to input values', () {
