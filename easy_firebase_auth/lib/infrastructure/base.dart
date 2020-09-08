@@ -83,19 +83,23 @@ abstract class Base {
         final fex = FirebaseExceptionData();
         fex.code = e.code;
         fex.message = e.message;
+        print('HANDLED FIREBASE EXCEPTION $e  $fex');
+
         final response = baseerrMsg(e, true, fex);
         // Don't know how to handle exception
-        if (isNull(response)) {
+        if (isNonNull(response)) {
           // throw 'Unhandled Firebase Exception' + e;
-          return fex.message;
-        } else {
           return response;
+        } else {
+          return fex.message;
         }
       } else {
+        print('ENCOUNTERED EXCEPTION $e');
+
         final response = baseerrMsg(e, false, null);
         // Don't know how to handle exception
         if (isNull(response)) {
-          throw ' Exception not handled $e';
+          throw 'Exception not handled $e';
         } else {
           return response;
         }

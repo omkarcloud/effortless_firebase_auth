@@ -107,17 +107,21 @@ class Email extends AuthMethod {
 
   @override
   String errMsg(e, bool isFirebaseException, FirebaseExceptionData fe) {
-    print('errMsg $e $isFirebaseException $fe');
+    // print('errMsg $e $isFirebaseException $fe');
+    return null;
   }
 
   @override
   Future<void> sign(bool isInSignIn, FirebaseAuth auth) async {
-    final email = serve('email');
-    final password = serve('password');
+    String email = serve('email');
+    String password = serve('password');
+    // logStore();
 
     assert(isNonNull(email));
     assert(isNonNull(password));
 
+    email = email.trim();
+    // password = password.trim();
     if (isInSignIn) {
       await auth.signInWithEmailAndPassword(email: email, password: password);
 

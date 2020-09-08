@@ -67,8 +67,8 @@ MultiValidator get passwordValidator => MultiValidator([
       RequiredValidator(errorText: 'password is required'),
       MinLengthValidator(8,
           errorText: 'password must be at least 8 digits long'),
-      PatternValidator(r'(?=.*?[#?!@$%^&*-])',
-          errorText: 'passwords must have at least one special character')
+      // PatternValidator(r'(?=.*?[#?!@$%^&*-])',
+      //     errorText: 'passwords must have at least one special character')
     ]);
 
 MultiValidator get emailValidator => MultiValidator([
