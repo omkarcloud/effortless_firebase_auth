@@ -41,7 +41,7 @@ dependencies:
   global_wings:
   device_preview:
   easy_firebase_auth:
-    path: ./
+    path: ../
 
 
   # firebase_auth_ui:
