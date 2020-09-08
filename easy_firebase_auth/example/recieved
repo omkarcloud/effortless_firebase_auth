@@ -1,4 +1,0 @@
-make cl SignIn r f  !str !eq   stf
-params 
-lsAuthMethod methods
-Function onSuccess
