@@ -40,6 +40,7 @@ dependencies:
   form_field_validator:
   flutter_form_builder:
   global_wings:
+  device_preview:
 
 
   # firebase_auth_ui:

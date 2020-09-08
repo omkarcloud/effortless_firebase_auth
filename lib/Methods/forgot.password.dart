@@ -24,81 +24,76 @@ class ForgotPasswordScreen extends StatefulWidget {
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              children: [
-                Px50(),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Center(
-                        child: buildText("Lost your password?"),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Center(
-                          child: Text(
-                            "Type your email below and we'll send you instructions on how to reset it.",
-                            textAlign: TextAlign.center,
-                            style: new TextStyle(
-                                fontSize: 16.0,
-                                color: const Color(0xFF000000),
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'Roboto'),
-                          ),
-                        ),
-                      ),
-                    ],
+    return (wrap(
+      () => Center(
+        child: Column(
+          children: [
+            Px50(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Center(
+                    child: buildText("Lost your password?"),
                   ),
-                ),
-                Px20(),
-                Center(
-                  child: Builder(builder: (context) {
-                    return Formok(
-                      widget.themeColor,
-                      onPressed: () {
-                        isFirstTimeSubmittedForgotPassword = true;
-                      },
-                      fields: [
-                        emailFeild..attribute = 'forgotpassword-email',
-                      ].map((e) {
-                        return ((GlobalKey<FormBuilderState> a) =>
-                            fieldToFormField(e, a, (v) {
-                              if (isFirstTimeSubmittedForgotPassword) {
-                                a.currentState.saveAndValidate();
-                              }
-                            }));
-                      }).toList(),
-                      onSuccess: () async {
-                        final email = serve('forgotpassword-email');
-                        // FirebaseAuth.instance.currentUser.reload()
-                        final firebaseErrorMessage = await fireErr(() async {
-                          await resetPassword(getAuth(), email);
-                          showSnackBar(
-                              'Email has been sent to $email.', context);
-
-                          await Future.delayed(
-                              const Duration(seconds: 4), () => "1");
-
-                          Navigator.of(context).pop();
-                        });
-                        if (isNonNull(firebaseErrorMessage)) {
-                          showSnackBar(firebaseErrorMessage, context);
-                        }
-                      },
-                    );
-                  }),
-                ),
-                // Cancel Button
-              ],
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Center(
+                      child: Text(
+                        "Type your email below and we'll send you instructions on how to reset it.",
+                        textAlign: TextAlign.center,
+                        style: new TextStyle(
+                            fontSize: 16.0,
+                            color: const Color(0xFF000000),
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'Roboto'),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
+            Px20(),
+            Center(
+              child: Builder(builder: (context) {
+                return Formok(
+                  widget.themeColor,
+                  onPressed: () {
+                    isFirstTimeSubmittedForgotPassword = true;
+                  },
+                  fields: [
+                    emailFeild..attribute = 'forgotpassword-email',
+                  ].map((e) {
+                    return ((GlobalKey<FormBuilderState> a) =>
+                        fieldToFormField(e, a, (v) {
+                          if (isFirstTimeSubmittedForgotPassword) {
+                            a.currentState.saveAndValidate();
+                          }
+                        }));
+                  }).toList(),
+                  onSuccess: () async {
+                    final email = serve('forgotpassword-email');
+                    // FirebaseAuth.instance.currentUser.reload()
+                    final firebaseErrorMessage = await fireErr(() async {
+                      await resetPassword(getAuth(), email);
+                      showSnackBar('Email has been sent to $email.', context);
+
+                      await Future.delayed(
+                          const Duration(seconds: 4), () => "1");
+
+                      Navigator.of(context).pop();
+                    });
+                    if (isNonNull(firebaseErrorMessage)) {
+                      showSnackBar(firebaseErrorMessage, context);
+                    }
+                  },
+                );
+              }),
+            ),
+            // Cancel Button
+          ],
         ),
       ),
-    );
+    ));
   }
 }

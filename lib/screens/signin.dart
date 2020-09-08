@@ -52,6 +52,29 @@ Color getColor() {
   return _c;
 }
 
+/**
+* A simple and no headache solution to implement Responsiveness
+* It uses the Widely accepted simple fact that you can bascially limit the maxwidth and center the Screen to make it look good on tablets and Desktops.
+* It is used by the library to implement responsiveness for all screens (viz SignIn, SignUp, EmalVerify...)
+*    
+*     wrap(() => ScreenToBeMadeResponsive());
+*
+* PROTIP: To visually see how app looks on different screen sizes see the package device_preview:https://pub.dev/packages/device_preview/ 
+*/
+
+Widget wrap(Function0<Widget> f) {
+  return Scaffold(
+    body: SafeArea(
+      child: SingleChildScrollView(
+        child: Center(
+            child: Container(
+                constraints: BoxConstraints(minWidth: 100, maxWidth: 400),
+                child: f())),
+      ),
+    ),
+  );
+}
+
 class _SignInState extends State<SignIn> {
   // Could be moved to constructor here it is to facilitate hot reload
   void setUp() {
@@ -67,64 +90,54 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     setUp();
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Container(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Px50(),
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(14.0),
-                      child: buildText(
-                        'Log in to your account',
-                      ),
-                    ),
+    return (wrap(() => Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Px50(),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(14.0),
+                  child: buildText(
+                    'Log in to your account',
                   ),
-                  Px20(),
-                  ...getSSOWidget(),
-                  hasEmail(widget.methods)
-                      ? Column(
-                          children: [
-                            widget.methods.length == 1
-                                ? Container()
-                                : OrWidget(),
-                            getEmailWidget(),
-                          ],
-                        )
-                      : Container(),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 14.0),
-                    child: GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => SignUp(
-                                    auth: widget.auth,
-                                    methods: widget.methods,
-                                    onSuccess: widget.onSuccess,
-                                    privacyPolicy: widget.privacyPolicy,
-                                    themeColor: widget.themeColor,
-                                  )));
-                        },
-                        child: Text(
-                          'Don\'t have an account? Sign Up',
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: const Color(0xFF000000),
-                              fontWeight: FontWeight.w500,
-                              fontFamily: "Roboto"),
-                        )),
-                  ),
-                ],
+                ),
               ),
-            ),
+              Px20(),
+              ...getSSOWidget(),
+              hasEmail(widget.methods)
+                  ? Column(
+                      children: [
+                        widget.methods.length == 1 ? Container() : OrWidget(),
+                        getEmailWidget(),
+                      ],
+                    )
+                  : Container(),
+              Padding(
+                padding: const EdgeInsets.only(top: 14.0),
+                child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => SignUp(
+                                auth: widget.auth,
+                                methods: widget.methods,
+                                onSuccess: widget.onSuccess,
+                                privacyPolicy: widget.privacyPolicy,
+                                themeColor: widget.themeColor,
+                              )));
+                    },
+                    child: Text(
+                      'Don\'t have an account? Sign Up',
+                      style: TextStyle(
+                          fontSize: 12,
+                          color: const Color(0xFF000000),
+                          fontWeight: FontWeight.w500,
+                          fontFamily: "Roboto"),
+                    )),
+              ),
+            ],
           ),
-        ),
-      ),
-    );
+        )));
   }
 
   List<Widget> getSSOWidget() {

@@ -66,58 +66,50 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     setUp();
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Container(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Px50(),
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(14.0),
-                      child: buildText(
-                        'Sign up for your account',
-                      ),
-                    ),
-                  ),
-                  Px20(),
-                  ...getSSOWidget(),
-                  hasEmail(widget.methods)
-                      ? Column(
-                          children: [
-                            widget.methods.length == 1
-                                ? Container()
-                                : OrWidget(),
-                            getEmailWidget(),
-                          ],
-                        )
-                      : Container(),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 14.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Text(
-                        'Already have an account? Sign In',
-                        style: smalltextStyle,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Center(child: widget.privacyPolicy),
-                  )
-                ],
+    return (wrap(
+      () => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Px50(),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(14.0),
+                child: buildText(
+                  'Sign up for your account',
+                ),
               ),
             ),
-          ),
+            Px20(),
+            ...getSSOWidget(),
+            hasEmail(widget.methods)
+                ? Column(
+                    children: [
+                      widget.methods.length == 1 ? Container() : OrWidget(),
+                      getEmailWidget(),
+                    ],
+                  )
+                : Container(),
+            Padding(
+              padding: const EdgeInsets.only(top: 14.0),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  'Already have an account? Sign In',
+                  style: smalltextStyle,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(child: widget.privacyPolicy),
+            )
+          ],
         ),
       ),
-    );
+    ));
   }
 
   List<Widget> getSSOWidget() {
