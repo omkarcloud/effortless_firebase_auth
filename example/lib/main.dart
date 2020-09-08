@@ -1,3 +1,4 @@
+// import 'package:allsirsa/temp.dart' show TempApp;
 import 'package:flutter/material.dart';
 import 'package:effortless_firebase_auth/effortless_firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'Easy Auth',
       debugShowCheckedModeBanner: false,
       home: SignIn(
-        themeColor: Colors.deepPurple,
+        themeColor: Colors.red,
         // Sign in and Sign Up fields are customizable in EmailConfig
         methods: [Google(), Email(config: EmailConfig())],
         auth: FirebaseAuth.instance,

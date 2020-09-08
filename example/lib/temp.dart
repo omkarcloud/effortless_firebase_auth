@@ -3,12 +3,6 @@ import 'package:effortless_firebase_auth/effortless_firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(MyApp());
-}
-
 /**
  * Extend AuthMethod to create a new method
  */
@@ -79,7 +73,7 @@ class CustomErrorMessage extends Email {
   }
 }
 
-class MyApp extends StatelessWidget {
+class TempApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final languageField = Field()
@@ -96,7 +90,9 @@ class MyApp extends StatelessWidget {
       home: SignIn(
         themeColor: Colors.deepPurple,
         // Sign in and Sign Up fields are customizable in EmailConfig
-        methods: [CustomErrorMessage(config: EmailConfig())],
+        methods: [
+          CustomErrorMessage(config: EmailConfig(signUpFields: signUpFields))
+        ],
         auth: FirebaseAuth.instance,
         onSuccess: (user, context, fields) {
           showSnackBar(

@@ -1,39 +1,18 @@
-Completed Application
+# The purpose of the library is to provide you with a complete SignIn-SignUp Flow Solution. NO STATE NO Headache.
 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The detailed documentation of the package is available at https://awesome11activity.gitbook.io/effortless-auth/ as it is more convenient to follow.
 
-Package validation found the following potential issues:
+### ScreenShots
 
-- It's strongly recommended to include a "homepage" or "repository" field in your pubspec.yaml
-- Your dependency on "firebase_core" should have a version constraint. For example:
+![Alt text](/images/thumb.pmg)
 
-  dependencies:
-  firebase_core: ^0.5.0
+# The Capabilities are as follows
 
-  Without a constraint, you're promising to support all future versions of "firebase_core".
-
-- Your dependency on "dartz" should have a version constraint. For example:
-
-  dependencies:
-  dartz: ^0.9.1
-
-  Without a constraint, you're promising to support all future versions of "dartz".
-
-- Your dependency on "firebase_auth" should have a version constraint. For example:
-
-  dependencies:
-  firebase_auth: ^0.18.0+1
-
-  Without a constraint, you're promising to support all future versions of "firebase_auth".
-
-- Your dependency on "nice_button" should have a version constraint. For example:
-
-  dependencies:
-  nice_button: ^0.1.7
-
-  Without a constraint, you're promising to support all future versions of "nice_button".
-
-- Your dependency on "logger" should have a version constraint. For example:
-
-  dependencies:
-  logger: ^0.9.2
+|                    | State |                                                                                          |
+| ------------------ | ----- | ---------------------------------------------------------------------------------------- |
+| Auth providers     | ✔️    | Support Google Auth out of the box Providers (Facebook, Microsoft could be added easily) |
+| Password reset     | ✔️    | Out of the Box                                                                           |
+| Email confirmation | ✔️    | Out of the Box                                                                           |
+| Error Handling     | ✔️    | Good support for error handling. Error message could be customized with ease.            |
+| Adaptive layouts   | ✔️    | Adaptive layouts to support multiple screen sizes. sizes                                 |
+| Platforms          | ✔️    | Android,IOS                                                                              | Platforms | ✔️ | Android,IOS | <!--  --> |

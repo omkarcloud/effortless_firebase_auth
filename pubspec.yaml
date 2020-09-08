@@ -1,8 +1,8 @@
 name: effortless_firebase_auth
 description: effortless_firebase_auth A new Flutter package.
-version: 0.0.1
-author:
-homepage:
+version: 1.0.1
+author: Chetan
+homepage: https://awesome11activity.gitbook.io/effortless-auth/
 
 environment:
   sdk: '>=2.7.0 <3.0.0'
@@ -14,7 +14,7 @@ dependencies:
   meta:
   intl:
     # firebase_core:
-  google_sign_in: ^4.5.1
+  google_sign_in:
   firebase_core:
   dartz:
   # Add the dependencies for the Firebase products you want to use in your app
