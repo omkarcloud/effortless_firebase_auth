@@ -36,22 +36,30 @@ List<Widget Function(GlobalKey<FormBuilderState>)> getSignInFields() {
     emailFeild,
     passwordFeild,
   ].map((e) {
-    return ((GlobalKey<FormBuilderState> a) => fieldToFormField(e, a, (v) {
-          if (isFirstTimeSubmittedSignIn) {
-            a.currentState.saveAndValidate();
-          }
-        }));
+    return (createSignInField(e));
   }).toList();
 }
 
 List<Widget Function(GlobalKey<FormBuilderState>)> getSignUpFields() {
   return [nameField, emailFeild, passwordFeild, confirmPassword].map((e) {
-    return ((GlobalKey<FormBuilderState> a) => fieldToFormField(e, a, (v) {
-          if (isFirstTimeSubmittedSignUp) {
-            a.currentState.saveAndValidate();
-          }
-        }));
+    return createSignUpField(e);
   }).toList();
+}
+
+Widget Function(GlobalKey<FormBuilderState>) createSignInField(Field e) {
+  return ((GlobalKey<FormBuilderState> a) => fieldToFormField(e, a, (v) {
+        if (isFirstTimeSubmittedSignIn) {
+          a.currentState.saveAndValidate();
+        }
+      }));
+}
+
+Widget Function(GlobalKey<FormBuilderState>) createSignUpField(Field e) {
+  return ((GlobalKey<FormBuilderState> a) => fieldToFormField(e, a, (v) {
+        if (isFirstTimeSubmittedSignUp) {
+          a.currentState.saveAndValidate();
+        }
+      }));
 }
 
 /**

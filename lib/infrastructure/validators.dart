@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:global_wings/global_wings.dart';
-import 'package:intl/intl.dart';
 
 import 'utils.dart';
 

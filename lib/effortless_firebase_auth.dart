@@ -13,6 +13,10 @@ export 'infrastructure/utils.dart';
 
 export 'infrastructure/uiutils.dart';
 
+export 'infrastructure/validators.dart';
+export 'package:global_wings/global_wings.dart';
+export 'package:form_field_validator/form_field_validator.dart';
+
 export 'Methods/google.dart';
 
 export 'package:nice_button/nice_button.dart';
