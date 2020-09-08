@@ -1,0 +1,3 @@
+# Experimental API
+
+Form currently in beta. The available APIs are fully functional, but since they were recently launched, they do not have enough tests or maturity to guarantee their stability. These APIs can undergo many changes until a stable version is released. Any help will be very welcome, either through [issues](https://github.com/edsonbonfim/form/issues) or [pull requests](https://github.com/edsonbonfim/form/pulls).
